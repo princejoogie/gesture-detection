@@ -18,10 +18,11 @@ const App: React.FC = () => {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [enableOverlay, setEnableOverlay] = useState(false);
+  const [enableOverlay, setEnableOverlay] = useState(true);
 
   // Vars
   const [emoji, setEmoji] = useState<string>("");
+  const [confidence, setConfidence] = useState<number>(0);
 
   useEffect(() => {
     function handleResize() {
@@ -71,10 +72,13 @@ const App: React.FC = () => {
                 return p.score > c.score ? p : c;
               });
 
+              setConfidence(result.score);
               setEmoji(
                 gestureEmojis[result.name as keyof typeof gestureEmojis]
               );
               if (ctx) drawHand(hands, ctx);
+            } else {
+              if (emoji !== "") setEmoji("");
             }
           }
         } else throw new Error("Video not found");
@@ -146,8 +150,8 @@ const App: React.FC = () => {
 
               {enableOverlay && (
                 <div className="absolute p-2 font-mono text-xs bg-black rounded left-2 top-2 bg-opacity-20">
-                  <p className="font-serif text-3xl">gesture: {emoji}</p>
-                  <p>confidence: 92%</p>
+                  <p className="font-sans text-3xl">gesture: {emoji}</p>
+                  <p>confidence: {(confidence * 10).toFixed(2)}%</p>
                 </div>
               )}
 
