@@ -6,10 +6,10 @@ const Footer: React.FC = () => {
     <footer className="py-10 border-t border-gray-900">
       <Container>
         <div>
-          <h4 className="font-semibold">Gesture Recognition</h4>
+          <h4 className="font-semibold text-center">Taena mo sir luigi</h4>
         </div>
 
-        <p className="text-center text-sm text-gray-400">
+        <p className="text-sm text-center text-gray-400">
           Made with 💖 and ☕ by{" "}
           <a
             href="https://princecaarlo.tech/"

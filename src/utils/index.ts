@@ -9,27 +9,27 @@ const fingerJoints = {
 };
 
 const style: Record<number, { color: string; size: number }> = {
-  0: { color: "yellow", size: 15 },
-  1: { color: "gold", size: 6 },
-  2: { color: "green", size: 10 },
-  3: { color: "gold", size: 6 },
-  4: { color: "gold", size: 6 },
-  5: { color: "purple", size: 10 },
-  6: { color: "gold", size: 6 },
-  7: { color: "gold", size: 6 },
-  8: { color: "gold", size: 6 },
-  9: { color: "blue", size: 10 },
-  10: { color: "gold", size: 6 },
-  11: { color: "gold", size: 6 },
-  12: { color: "gold", size: 6 },
-  13: { color: "red", size: 10 },
-  14: { color: "gold", size: 6 },
-  15: { color: "gold", size: 6 },
-  16: { color: "gold", size: 6 },
-  17: { color: "orange", size: 10 },
-  18: { color: "gold", size: 6 },
-  19: { color: "gold", size: 6 },
-  20: { color: "gold", size: 6 },
+  0: { color: "#F59E0B", size: 15 },
+  1: { color: "#FBBF24", size: 6 },
+  2: { color: "#059669", size: 10 },
+  3: { color: "#FBBF24", size: 6 },
+  4: { color: "#FBBF24", size: 6 },
+  5: { color: "#8B5CF6", size: 10 },
+  6: { color: "#FBBF24", size: 6 },
+  7: { color: "#FBBF24", size: 6 },
+  8: { color: "#FBBF24", size: 6 },
+  9: { color: "#3B82F6", size: 10 },
+  10: { color: "#FBBF24", size: 6 },
+  11: { color: "#FBBF24", size: 6 },
+  12: { color: "#FBBF24", size: 6 },
+  13: { color: "#EF4444", size: 10 },
+  14: { color: "#FBBF24", size: 6 },
+  15: { color: "#FBBF24", size: 6 },
+  16: { color: "#FBBF24", size: 6 },
+  17: { color: "#EC4899", size: 10 },
+  18: { color: "#FBBF24", size: 6 },
+  19: { color: "#FBBF24", size: 6 },
+  20: { color: "#FBBF24", size: 6 },
 };
 
 export const drawHand = (
@@ -57,7 +57,7 @@ export const drawHand = (
             landmarks[secondJointIndex][0],
             landmarks[secondJointIndex][1]
           );
-          ctx.strokeStyle = "plum";
+          ctx.strokeStyle = "#FFFFFFCC";
           ctx.lineWidth = 4;
           ctx.stroke();
         }
