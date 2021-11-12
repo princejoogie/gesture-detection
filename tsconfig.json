@@ -17,6 +17,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noImplicitAny": false,
     "noEmit": true,
     "jsx": "react-jsx",
     "skipDefaultLibCheck": true
@@ -24,5 +25,10 @@
   "include": [
     "./src",
     "./src/types.d.ts"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./local_modules",
+    "./dist"
   ],
 }
