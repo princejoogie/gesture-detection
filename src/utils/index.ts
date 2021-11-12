@@ -36,7 +36,6 @@ export const drawHand = (
   predictions: handpose.AnnotatedPrediction[],
   ctx: CanvasRenderingContext2D
 ) => {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   if (predictions.length > 0) {
     predictions.forEach((prediction) => {
       const landmarks = prediction.landmarks;

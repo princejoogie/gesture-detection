@@ -43,22 +43,18 @@ const App: React.FC = () => {
           const hands = await net.estimateHands(video);
 
           const ctx = canvasRef.current.getContext("2d");
+          ctx?.clearRect(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
+          );
           if (hands.length > 0) {
             if (ctx) drawHand(hands, ctx);
-          } else {
-            ctx?.clearRect(
-              0,
-              0,
-              canvasRef.current.width,
-              canvasRef.current.height
-            );
-            console.log("No hands detected");
           }
         } else throw new Error("Video not found");
       } else throw new Error("Refs not found");
-    } catch (err: any) {
-      console.error(err);
-    }
+    } catch (err: any) {}
   };
 
   useEffect(() => {
@@ -66,7 +62,7 @@ const App: React.FC = () => {
     (async () => {
       console.log("Loading handpose model...");
       const net = await handpose.load();
-      interval = setInterval(async () => await detect(net), 100);
+      interval = setInterval(async () => await detect(net), 50);
     })();
 
     return () => clearInterval(interval);
@@ -81,6 +77,22 @@ const App: React.FC = () => {
           <div className="flex-1 w-full">
             <div className="flex items-center justify-between">
               <p className="text-xl text-gray-300">Video Preview</p>
+            </div>
+
+            <div
+              ref={containerRef}
+              className="w-full relative bg-gray-800 h-[468px] bg-opacity-50 overflow-hidden rounded-lg mt-4 flex items-center justify-center"
+            >
+              <Webcam
+                className="absolute top-0 left-0 h-[468px]"
+                ref={webcamRef}
+              />
+            </div>
+          </div>
+
+          <div className="flex-1 w-full">
+            <div className="flex items-center justify-between">
+              <p className="text-xl text-gray-300">Prediction</p>
 
               <div className="flex items-center space-x-2">
                 <p className="text-gray-400 text-xs">Enable stats</p>
@@ -101,13 +113,10 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <div
-              ref={containerRef}
-              className="w-full relative bg-gray-800 h-[468px] bg-opacity-50 overflow-hidden rounded-lg mt-4 flex items-center justify-center"
-            >
-              <Webcam
+            <div className="relative w-full rounded-lg mt-4 h-[468px] bg-gray-800 overflow-hidden bg-opacity-50 flex items-center justify-center">
+              <canvas
+                ref={canvasRef}
                 className="absolute top-0 left-0 h-[468px]"
-                ref={webcamRef}
               />
 
               {enableOverlay && (
@@ -118,19 +127,6 @@ const App: React.FC = () => {
               )}
 
               <div className="absolute inset-x-4 bottom-4"></div>
-            </div>
-          </div>
-
-          <div className="flex-1 w-full">
-            <div>
-              <p className="text-xl text-gray-300">Prediction</p>
-            </div>
-
-            <div className="relative w-full rounded-lg mt-4 h-[468px] bg-gray-800 overflow-hidden bg-opacity-50 flex items-center justify-center">
-              <canvas
-                ref={canvasRef}
-                className="absolute top-0 left-0 h-[468px]"
-              ></canvas>
             </div>
           </div>
         </main>
