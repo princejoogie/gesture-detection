@@ -917,11 +917,6 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
-fingerpose@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/fingerpose/-/fingerpose-0.1.0.tgz#b39af26b2fd4f01c3ad7fadf4a74dd07e34b728c"
-  integrity sha512-OXIRuRTgukBOo4xUO+vPchzHftZOPxO7VRh4HDjTg5NGr4gSkiY+LQShjsKAzmpRiRdmTgDh0dNsGpWa1Jsx3Q==
-
 form-data@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.1.tgz#ebd53791b78356a99af9a300d4282c4d5eb9755f"

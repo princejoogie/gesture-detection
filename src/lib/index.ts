@@ -1,4 +1,4 @@
-import * as fp from "fingerpose";
+import fp from "../../local_modules/fingerpose";
 
 export const _peaceGesture = new fp.GestureDescription("peace");
 
@@ -69,7 +69,7 @@ _peaceGesture.addDirection(
 // _peaceGesture.setWeight(fp.Finger.Index, 2);
 // _peaceGesture.setWeight(fp.Finger.Middle, 2);
 
-export const _okGesture = new fp.GestureDescription("sure");
+export const _okGesture = new fp.GestureDescription("ok");
 for (let finger of [fp.Finger.Pinky, fp.Finger.Ring, fp.Finger.Middle]) {
   _okGesture.addCurl(finger, fp.FingerCurl.HalfCurl, 0.75);
   _okGesture.addDirection(finger, fp.FingerDirection.DiagonalUpRight, 0.5);
