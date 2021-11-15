@@ -35,6 +35,7 @@ const App: React.FC = () => {
   // Vars
   const [emoji, setEmoji] = useState<string>("");
   const [confidence, setConfidence] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function handleResize() {
@@ -61,14 +62,17 @@ const App: React.FC = () => {
         if (webcamRef.current.video) {
           const video = webcamRef.current.video;
           const hands = await net.estimateHands(video);
-
           const ctx = canvasRef.current.getContext("2d");
+
           ctx?.clearRect(
             0,
             0,
             canvasRef.current.width,
             canvasRef.current.height
           );
+
+          if (loading) setLoading(false);
+
           if (hands.length > 0) {
             const GE = new fp.GestureEstimator([
               _rockNRollGesture,
@@ -92,11 +96,12 @@ const App: React.FC = () => {
               setEmoji(
                 gestureEmojis[result.name as keyof typeof gestureEmojis].emoji
               );
-            } else {
-              if (emoji !== "") setEmoji("");
             }
 
             if (ctx) drawHand(hands, ctx);
+          } else {
+            setEmoji("No Gesture");
+            setConfidence(0);
           }
         } else throw new Error("Video not found");
       } else throw new Error("Refs not found");
@@ -116,6 +121,12 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {loading ? (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-30">
+          Loading...
+        </div>
+      ) : null}
+
       <Navbar />
 
       <Container className="flex-1 my-10">
@@ -168,7 +179,14 @@ const App: React.FC = () => {
               {enableOverlay && (
                 <div className="absolute p-2 font-mono text-xs bg-black rounded left-2 top-2 bg-opacity-20">
                   <p className="mb-2 font-mono text-xl">
-                    gesture: <span className="font-sans text-3xl">{emoji}</span>
+                    gesture:{" "}
+                    <span
+                      className={`font-sans ${
+                        emoji === "No Gesture" ? "text-xl" : "text-3xl"
+                      }`}
+                    >
+                      {emoji}
+                    </span>
                   </p>
                   <p>confidence: {(confidence * 10).toFixed(2)}%</p>
                 </div>
