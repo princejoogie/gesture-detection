@@ -2,16 +2,28 @@ import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Switch } from "@headlessui/react";
 import { Container, Footer, Navbar } from "./components";
-import { _okGesture, _peaceGesture, _raiseGesture } from "./lib";
+import {
+  _okGesture,
+  _raiseGesture,
+  _rockNRollGesture,
+  _fistBumpGesture,
+  _pointUpGesture,
+  _thumbsUpGesture,
+  _callMeGesture,
+} from "./lib";
 import * as handpose from "@tensorflow-models/handpose";
 import fp from "../local_modules/fingerpose";
 import { drawHand } from "./utils";
 
 const gestureEmojis = {
+  rock_n_roll: "🤘",
+  point_up: "☝️",
   ok: "👌",
   raise: "✋",
+  fist_bump: "👊",
   victory: "✌",
   thumbs_up: "👍",
+  call_me: "🤙",
 };
 
 const App: React.FC = () => {
@@ -59,10 +71,14 @@ const App: React.FC = () => {
           );
           if (hands.length > 0) {
             const GE = new fp.GestureEstimator([
+              _rockNRollGesture,
+              _pointUpGesture,
               _okGesture,
               _raiseGesture,
+              _fistBumpGesture,
               fp.Gestures.VictoryGesture,
-              fp.Gestures.ThumbsUpGesture,
+              _thumbsUpGesture,
+              _callMeGesture,
             ]);
 
             const estimate = GE.estimate(hands[0].landmarks, 7);
@@ -76,10 +92,11 @@ const App: React.FC = () => {
               setEmoji(
                 gestureEmojis[result.name as keyof typeof gestureEmojis]
               );
-              if (ctx) drawHand(hands, ctx);
             } else {
               if (emoji !== "") setEmoji("");
             }
+
+            if (ctx) drawHand(hands, ctx);
           }
         } else throw new Error("Video not found");
       } else throw new Error("Refs not found");
