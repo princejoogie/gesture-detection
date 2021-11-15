@@ -16,14 +16,14 @@ import fp from "../local_modules/fingerpose";
 import { drawHand } from "./utils";
 
 const gestureEmojis = {
-  rock_n_roll: "🤘",
-  point_up: "☝️",
-  ok: "👌",
-  raise: "✋",
-  fist_bump: "👊",
-  victory: "✌",
-  thumbs_up: "👍",
-  call_me: "🤙",
+  rock_n_roll: { emoji: "🤘", name: "Rock n Roll" },
+  point_up: { emoji: "☝️", name: "Point Up" },
+  ok: { emoji: "👌", name: "Okay" },
+  raise: { emoji: "✋", name: "Raise Hand" },
+  fist_bump: { emoji: "👊", name: "Fist Bump" },
+  victory: { emoji: "✌", name: "Peace" },
+  thumbs_up: { emoji: "👍", name: "Thumbs Up" },
+  call_me: { emoji: "🤙", name: "Call Me" },
 };
 
 const App: React.FC = () => {
@@ -90,7 +90,7 @@ const App: React.FC = () => {
 
               setConfidence(result.score);
               setEmoji(
-                gestureEmojis[result.name as keyof typeof gestureEmojis]
+                gestureEmojis[result.name as keyof typeof gestureEmojis].emoji
               );
             } else {
               if (emoji !== "") setEmoji("");
@@ -167,7 +167,9 @@ const App: React.FC = () => {
 
               {enableOverlay && (
                 <div className="absolute p-2 font-mono text-xs bg-black rounded left-2 top-2 bg-opacity-20">
-                  <p className="font-sans text-3xl">gesture: {emoji}</p>
+                  <p className="mb-2 font-mono text-xl">
+                    gesture: <span className="font-sans text-3xl">{emoji}</span>
+                  </p>
                   <p>confidence: {(confidence * 10).toFixed(2)}%</p>
                 </div>
               )}
@@ -176,6 +178,29 @@ const App: React.FC = () => {
             </div>
           </div>
         </main>
+
+        <div className="mt-6">
+          <h5>Available Actions:</h5>
+
+          <div className="flex flex-wrap mt-2">
+            {
+              // Show all available actions from "gestureEmojis" object name - emoji
+              Object.keys(gestureEmojis).map((key) => (
+                <div
+                  key={key}
+                  className="flex items-center p-2 mt-2 mr-2 space-x-2 bg-gray-900 rounded cursor-default hover:opacity-70"
+                >
+                  <p className="text-sm text-gray-400">
+                    {gestureEmojis[key].name}:&nbsp;
+                    <span className="font-sans text-gray-400">
+                      {gestureEmojis[key].emoji}
+                    </span>
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
       </Container>
 
       <Footer />

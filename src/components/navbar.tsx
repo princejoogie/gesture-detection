@@ -6,10 +6,10 @@ const Navbar: React.FC = () => {
   return (
     <nav className="py-10 border-b border-gray-900">
       <Container className="flex flex-row justify-between">
-        <h1 className="font-bold font-mono text-2xl">CPECGM</h1>
+        <h1 className="font-mono text-2xl font-bold">VAR</h1>
 
         <div>
-          <p className="text-gray-300">Gesture Recognition</p>
+          <p className="text-gray-300">CPECGM | CPE-181</p>
         </div>
       </Container>
     </nav>
